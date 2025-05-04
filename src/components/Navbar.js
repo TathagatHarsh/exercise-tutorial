@@ -47,6 +47,16 @@ const Navbar = () => {
         >
           Exercises
         </a>
+
+        <a
+          href="#blogs"
+          style={{
+            textDecoration: "none",
+            color: "#3A1212",
+          }}
+        >
+          Blogs
+        </a>
       </Stack>
     </Stack>
   );
