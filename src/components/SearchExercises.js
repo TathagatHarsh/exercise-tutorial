@@ -19,7 +19,7 @@ function SearchExercises() {
         <TextField
           sx={{
             input: { fontWeight: "700", border: "none", borderRadius: "4px" },
-            width: { lg: "1170px", xs: "350px" },
+            width: { lg: "810px", xs: "350px" },
             backgroundColor: "#fff",
             borderRadius: "40px",
           }}
@@ -32,10 +32,13 @@ function SearchExercises() {
         <Button
           className="search-btn"
           sx={{
-            bgcolor: "#FF2625",
+            bgcolor: "#007BFF",
             color: "#fff",
             textTransform: "none",
             width: { lg: "175px", xs: "80px" },
+            fontSize: { lg: "20px", xs: "14px" },
+            height: "56px",
+            position: "absolute",
           }}
         >
           Search
