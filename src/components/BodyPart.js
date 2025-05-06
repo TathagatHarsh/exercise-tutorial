@@ -1,50 +1,21 @@
 import React from "react";
-import { Stack, Typography } from "@mui/material";
 import Icon from "../assets/icons/gym.png";
 
 const BodyPart = ({ item, setBodyPart, bodyPart }) => (
-  <Stack
-    type="button"
-    alignItems="center"
-    justifyContent="center"
-    className="bodyPart-card"
-    sx={
-      bodyPart === item
-        ? {
-            borderTop: "4px solid #007bff",
-            background: "#fff",
-            borderBottomLeftRadius: "20px",
-            width: "270px",
-            height: "282px",
-            cursor: "pointer",
-            gap: "47px",
-          }
-        : {
-            background: "#fff",
-            borderBottomLeftRadius: "20px",
-            width: "270px",
-            height: "282px",
-            cursor: "pointer",
-            gap: "47px",
-          }
-    }
+  <div
     onClick={() => {
       setBodyPart(item);
       window.scrollTo({ top: 1800, left: 100, behavior: "smooth" });
     }}
+    className={`flex flex-col items-center justify-center rounded-bl-[20px] w-[270px] h-[282px] cursor-pointer gap-[47px] ${
+      bodyPart === item ? "border-t-4 border-blue-600 bg-white" : "bg-white"
+    }`}
   >
-    <img src={Icon} alt="dumbbell" style={{ width: "40px", height: "40px" }} />
-    <Typography
-      fontSize="24px"
-      fontWeight="bold"
-      fontFamily="Alegreya"
-      color="#3A1212"
-      textTransform="capitalize"
-    >
-      {" "}
+    <img src={Icon} alt="dumbbell" className="w-10 h-10" />
+    <p className="text-2xl font-bold font-['Alegreya'] text-[#3A1212] capitalize">
       {item}
-    </Typography>
-  </Stack>
+    </p>
+  </div>
 );
 
 export default BodyPart;

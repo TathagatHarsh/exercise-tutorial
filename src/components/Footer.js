@@ -129,10 +129,10 @@ export default function Footer() {
                 Email: support@fitguide.com
               </li>
               <li className="text-sm text-muted-foreground">
-                Phone: +1 (555) 123-4567
+                Phone: +91 9999988888
               </li>
               <li className="text-sm text-muted-foreground">
-                Address: 123 Fitness St, Workout City
+                Address: Fitness St, Workout City
               </li>
             </ul>
           </div>
