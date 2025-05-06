@@ -6,7 +6,9 @@ body {
   font-family: "Josefin Sans";
   background-color: #f4f9ff;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 * {
   padding: 0px;
   margin: 0px;
