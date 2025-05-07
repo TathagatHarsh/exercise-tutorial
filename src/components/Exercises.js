@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Pagination from "@mui/material/Pagination";
-import { Box, Stack, Typography } from "@mui/material";
 
 import { exerciseOptions, fetchData } from "../utils/fetchData";
 import ExerciseCard from "./ExerciseCard";
@@ -12,8 +10,6 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
 
   useEffect(() => {
     const fetchExercisesData = async () => {
-      if (bodyPart === "search") return; // 👈 Skip if search already handled it
-
       let exercisesData = [];
 
       if (bodyPart === "all") {
@@ -32,57 +28,51 @@ const Exercises = ({ exercises, setExercises, bodyPart }) => {
     };
 
     fetchExercisesData();
-  }, [bodyPart]);
+  }, [bodyPart, setExercises]);
 
-  // Pagination
   const indexOfLastExercise = currentPage * exercisesPerPage;
   const indexOfFirstExercise = indexOfLastExercise - exercisesPerPage;
   const currentExercises = Array.isArray(exercises)
     ? exercises.slice(indexOfFirstExercise, indexOfLastExercise)
     : [];
 
-  const paginate = (event, value) => {
+  const paginate = (value) => {
     setCurrentPage(value);
-
     window.scrollTo({ top: 1800, behavior: "smooth" });
   };
 
   if (!currentExercises.length) return <Loader />;
 
+  const totalPages = Math.ceil(exercises.length / exercisesPerPage);
+
   return (
-    <Box id="exercises" sx={{ mt: { lg: "109px" } }} mt="50px" p="20px">
-      <Typography
-        variant="h4"
-        fontWeight="bold"
-        sx={{ fontSize: { lg: "44px", xs: "30px" } }}
-        mb="46px"
-      >
+    <div id="exercises" className="mt-[50px] lg:mt-[109px] p-5">
+      <h2 className="text-3xl lg:text-[44px] font-bold mb-12 text-center">
         Showing Results
-      </Typography>
-      <Stack
-        direction="row"
-        sx={{ gap: { lg: "107px", xs: "50px" } }}
-        flexWrap="wrap"
-        justifyContent="center"
-      >
+      </h2>
+      <div className="flex flex-wrap justify-center gap-12">
         {currentExercises.map((exercise, idx) => (
           <ExerciseCard key={idx} exercise={exercise} />
         ))}
-      </Stack>
-      <Stack sx={{ mt: { lg: "114px", xs: "70px" } }} alignItems="center">
-        {exercises.length > 9 && (
-          <Pagination
-            color="standard"
-            shape="rounded"
-            defaultPage={1}
-            count={Math.ceil(exercises.length / exercisesPerPage)}
-            page={currentPage}
-            onChange={paginate}
-            size="large"
-          />
-        )}
-      </Stack>
-    </Box>
+      </div>
+      {exercises.length > exercisesPerPage && (
+        <div className="flex justify-center mt-[70px] lg:mt-[114px] gap-2 flex-wrap">
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => paginate(i + 1)}
+              className={`px-4 py-2 rounded-full text-sm md:text-base font-semibold ${
+                currentPage === i + 1
+                  ? "bg-blue-600 text-white"
+                  : "bg-gray-200 text-gray-800"
+              } hover:bg-blue-500 transition-colors`}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 };
 
