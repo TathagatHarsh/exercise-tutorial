@@ -19,6 +19,6 @@ export const fetchData = async (url, options) => {
     return data;
   } catch (error) {
     console.error("Fetch error:", error.message);
-    return []; // fallback to avoid crashes
+    return [];
   }
 };
