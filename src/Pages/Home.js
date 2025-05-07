@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Box } from "@mui/material";
 
 import Exercises from "../components/Exercises";
 import SearchExercises from "../components/SearchExercises";
@@ -11,7 +10,7 @@ const Home = () => {
   const [bodyPart, setBodyPart] = useState("all");
 
   return (
-    <Box>
+    <div>
       <HeroBanner />
       <section id="workouts">
         <SearchExercises
@@ -26,7 +25,7 @@ const Home = () => {
         bodyPart={bodyPart}
       />
       <Testimonials />
-    </Box>
+    </div>
   );
 };
 
