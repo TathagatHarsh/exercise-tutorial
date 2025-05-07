@@ -20,7 +20,6 @@ const Navbar = () => {
     <header className="sticky top-0 z-50 bg-white shadow">
       <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
             <Dumbbell className="w-6 h-6 text-blue-600" />
             <span className="text-xl font-bold text-blue-600">FitGuide</span>
@@ -66,7 +65,7 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Menu Toggle */}
+          {/* Mobile Menu*/}
           <button
             className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
