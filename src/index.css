@@ -43,15 +43,21 @@
 
 /* Custom styles */
 .exercise-card {
-  @apply w-[400px] h-[445px] bg-white border-t-4 border-blue-600 rounded-bl-2xl flex flex-col justify-between pb-3 transition-transform duration-300;
+  @apply w-[400px] h-[445px] bg-white border-t-4 border-blue-600 rounded-bl-2xl 
+         flex flex-col justify-between pb-3 transition-all duration-300 relative;
+  perspective: 1000px;
 }
 
 .exercise-card:hover {
-  @apply transform scale-105;
+  @apply transform scale-[1.02] shadow-xl;
 }
 
 .exercise-card img {
-  @apply h-[326px] object-cover;
+  @apply h-[326px] object-cover transition-transform duration-500;
+}
+
+.exercise-card:hover img {
+  @apply scale-105;
 }
 
 /* Responsive styles */
