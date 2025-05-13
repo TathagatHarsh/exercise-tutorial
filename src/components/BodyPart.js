@@ -5,24 +5,24 @@ const BodyPart = ({ item, setBodyPart, bodyPart }) => {
     <button
       onClick={() => {
         setBodyPart(item);
-        window.scrollTo({ top: 1200, left: 100, behavior: "smooth" });
+        window.scrollTo({ top: 1800, behavior: "smooth" });
       }}
       className={`
-        px-4 py-2
-        rounded-full
-        text-sm font-semibold
-        bg-white
-        border border-gray-200
-        shadow-sm
-        min-w-[80px]
+        w-full p-6
+        rounded-xl
+        flex flex-col items-center
+        transition-all duration-300
         ${
           bodyPart === item
-            ? "bg-blue-50 border-blue-200 text-blue-800"
-            : "text-gray-800"
+            ? "bg-blue-600 text-white shadow-lg scale-105"
+            : "bg-white text-gray-800 hover:bg-blue-50 hover:shadow-md"
         }
       `}
     >
-      {item.charAt(0).toUpperCase() + item.slice(1)}
+      <span className="text-lg font-semibold capitalize mb-2">{item}</span>
+      <span className="text-sm opacity-75">
+        {bodyPart === item ? "Selected" : "Click to filter"}
+      </span>
     </button>
   );
 };
