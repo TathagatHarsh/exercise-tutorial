@@ -1,127 +1,153 @@
-import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Dumbbell } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Handle scroll effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
 
   const navLinks = [
-    { name: "Home", href: "/", scroll: false },
-    { name: "Workouts", href: "workouts", scroll: true },
-    { name: "About", href: "/about", scroll: false },
-    { name: "Blog", href: "/blog", scroll: false },
+    { name: "Home", path: "/" },
+    { name: "Exercises", path: "/exercises" },
+    { name: "Blog", path: "/blog" },
+    { name: "About", path: "/about" },
   ];
 
-  const isActive = (path) => location.pathname === path;
+  const isActivePath = (path) => {
+    return (
+      location.pathname === path ||
+      (path === "/exercises" && location.pathname.startsWith("/exercises"))
+    );
+  };
+
+  const handleNavClick = (path) => {
+    if (path === "/exercises" && location.pathname === "/") {
+      // If we're on home page and clicking exercises, scroll to exercises section
+      const exercisesSection = document.querySelector("#exercises");
+      if (exercisesSection) {
+        exercisesSection.scrollIntoView({ behavior: "smooth" });
+        return;
+      }
+    }
+    // For all other cases, navigate to the path
+    navigate(path);
+  };
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow">
-      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-2">
-            <Dumbbell className="w-6 h-6 text-blue-600" />
-            <span className="text-xl font-bold text-blue-600">FitGuide</span>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/90 backdrop-blur-md shadow-md py-4"
+          : "bg-transparent py-6"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between">
+          {/* Logo */}
+          <Link
+            to="/"
+            className="flex items-center space-x-2"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
+              FitGuide
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden space-x-8 md:flex">
-            {navLinks.map((link) =>
-              link.scroll ? (
-                <ScrollLink
-                  key={link.name}
-                  to={link.href}
-                  smooth={true}
-                  duration={500}
-                  offset={-70}
-                  className="text-sm font-medium text-gray-500 transition cursor-pointer hover:text-blue-600"
-                >
-                  {link.name}
-                </ScrollLink>
-              ) : (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className={`text-sm font-medium hover:text-blue-600 transition ${
-                    isActive(link.href)
-                      ? "text-blue-600 border-b-2 border-blue-600"
-                      : "text-gray-500"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              )
-            )}
-          </nav>
-
-          {/* Desktop Buttons */}
-          <div className="hidden space-x-4 md:flex">
-            <button className="px-4 py-1 text-sm border border-gray-300 rounded hover:bg-gray-100">
-              Sign In
-            </button>
-            <button className="px-4 py-1 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
-              Sign Up
-            </button>
+          <div className="hidden md:flex items-center space-x-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => handleNavClick(link.path)}
+                className={`text-base font-medium transition-all duration-200 relative group ${
+                  isActivePath(link.path)
+                    ? "text-blue-600"
+                    : "text-gray-700 hover:text-blue-600"
+                }`}
+              >
+                {link.name}
+                <span
+                  className={`absolute -bottom-2 left-0 w-full h-0.5 bg-blue-600 transform origin-left transition-transform duration-200 ${
+                    isActivePath(link.path) ? "scale-x-100" : "scale-x-0"
+                  } group-hover:scale-x-100`}
+                ></span>
+              </Link>
+            ))}
           </div>
 
-          {/* Mobile Menu*/}
+          {/* Mobile Menu Button */}
           <button
-            className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
             aria-label="Toggle menu"
           >
-            {isMenuOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
+            <div className="w-6 h-6 relative">
+              <span
+                className={`absolute h-0.5 w-full bg-gray-800 transform transition-all duration-300 ${
+                  isMenuOpen ? "rotate-45 top-3" : "top-1"
+                }`}
+              ></span>
+              <span
+                className={`absolute h-0.5 w-full bg-gray-800 top-3 transition-all duration-200 ${
+                  isMenuOpen ? "opacity-0" : "opacity-100"
+                }`}
+              ></span>
+              <span
+                className={`absolute h-0.5 w-full bg-gray-800 transform transition-all duration-300 ${
+                  isMenuOpen ? "-rotate-45 top-3" : "top-5"
+                }`}
+              ></span>
+            </div>
           </button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="pt-4 mt-2 border-t md:hidden">
-            <nav className="flex flex-col space-y-4">
-              {navLinks.map((link) =>
-                link.scroll ? (
-                  <ScrollLink
-                    key={link.name}
-                    to={link.href}
-                    smooth={true}
-                    duration={500}
-                    offset={-70}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="text-sm font-medium text-gray-600 cursor-pointer hover:text-blue-600"
-                  >
-                    {link.name}
-                  </ScrollLink>
-                ) : (
-                  <Link
-                    key={link.name}
-                    to={link.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`text-sm font-medium transition-colors hover:text-blue-600 ${
-                      isActive(link.href) ? "text-blue-600" : "text-gray-600"
-                    }`}
-                  >
-                    {link.name}
-                  </Link>
-                )
-              )}
-              <div className="flex flex-col gap-2 pt-4">
-                <button className="px-4 py-2 text-sm border border-gray-300 rounded hover:bg-gray-100">
-                  Sign In
-                </button>
-                <button className="px-4 py-2 text-sm text-white bg-blue-600 rounded hover:bg-blue-700">
-                  Sign Up
-                </button>
-              </div>
-            </nav>
+        <div
+          className={`md:hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen
+              ? "max-h-96 opacity-100 mt-4"
+              : "max-h-0 opacity-0 overflow-hidden"
+          }`}
+        >
+          <div className="pt-2 pb-4 space-y-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={() => handleNavClick(link.path)}
+                className={`block px-4 py-2 text-base font-medium rounded-lg transition-colors ${
+                  isActivePath(link.path)
+                    ? "bg-blue-50 text-blue-600"
+                    : "text-gray-700 hover:bg-gray-50"
+                }`}
+              >
+                {link.name}
+              </Link>
+            ))}
           </div>
-        )}
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 
