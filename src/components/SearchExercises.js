@@ -84,7 +84,7 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
   return (
     <div className="bg-gradient-to-b from-blue-50 to-white">
-      <div className="flex flex-col items-center px-5 py-8">
+      <div className="flex flex-col items-center px-5 pt-2 pb-8">
         <div className="text-center mb-8">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Awesome Exercises You <br className="hidden md:block" />

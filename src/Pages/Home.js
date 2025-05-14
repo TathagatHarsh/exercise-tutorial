@@ -10,9 +10,9 @@ const Home = () => {
   const [bodyPart, setBodyPart] = useState("all");
 
   return (
-    <div>
+    <div className="space-y-0">
       <HeroBanner />
-      <section id="workouts">
+      <section id="workouts" className="-mt-4">
         <SearchExercises
           setExercises={setExercises}
           bodyPart={bodyPart}

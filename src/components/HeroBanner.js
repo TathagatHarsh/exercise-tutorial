@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 
 const HeroBanner = () => {
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-blue-50 via-white to-blue-50 overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
 
       {/* Content Container */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16 flex flex-col lg:flex-row items-center justify-between">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 flex flex-col lg:flex-row items-center justify-between">
         {/* Text Content */}
         <div className="flex-1 max-w-2xl text-center lg:text-left mb-12 lg:mb-0">
           <h1 className="text-5xl lg:text-7xl font-bold text-gray-900 mb-6 leading-tight">
