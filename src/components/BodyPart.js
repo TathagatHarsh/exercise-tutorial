@@ -1,12 +1,17 @@
 import React from "react";
 
 const BodyPart = ({ item, setBodyPart, bodyPart }) => {
+  const handleClick = () => {
+    setBodyPart(item);
+    const exercisesSection = document.querySelector("#exercises");
+    if (exercisesSection) {
+      exercisesSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <button
-      onClick={() => {
-        setBodyPart(item);
-        window.scrollTo({ top: 1800, behavior: "smooth" });
-      }}
+      onClick={handleClick}
       className={`
         w-full p-6
         rounded-xl

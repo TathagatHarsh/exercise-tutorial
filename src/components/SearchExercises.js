@@ -55,7 +55,11 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
 
           setSearch("");
           setExercises(searchedExercises);
-          window.scrollTo({ top: 1800, behavior: "smooth" });
+
+          const exercisesSection = document.querySelector("#exercises");
+          if (exercisesSection) {
+            exercisesSection.scrollIntoView({ behavior: "smooth" });
+          }
 
           if (searchedExercises.length === 0) {
             setError("No exercises found matching your search");
@@ -79,9 +83,9 @@ const SearchExercises = ({ setExercises, bodyPart, setBodyPart }) => {
   };
 
   return (
-    <div className="min-h-[600px] bg-gradient-to-b from-blue-50 to-white">
-      <div className="flex flex-col items-center px-5 py-12">
-        <div className="text-center mb-12">
+    <div className="bg-gradient-to-b from-blue-50 to-white">
+      <div className="flex flex-col items-center px-5 py-8">
+        <div className="text-center mb-8">
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
             Awesome Exercises You <br className="hidden md:block" />
             Should Know
