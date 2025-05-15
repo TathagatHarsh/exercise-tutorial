@@ -76,7 +76,7 @@ const Blog = () => {
       category: "Wellness",
       readTime: "5 min read",
       image:
-        "https://www.healthshots.com/wp-content/uploads/2020/09/meditation-and-exercise.jpg",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1UAlU-evczf7cEF8fENdt3Yv8bcbGU3Njpg&s",
     },
     {
       id: 6,
@@ -88,7 +88,7 @@ const Blog = () => {
       category: "Motivation",
       readTime: "8 min read",
       image:
-        "https://www.bodybuilding.com/images/2019/july/stay-motivated-header-960x540.jpg",
+        "https://veloforte.com/cdn/shop/articles/dsc03235-1.jpg?v=1737716224",
     },
   ];
 

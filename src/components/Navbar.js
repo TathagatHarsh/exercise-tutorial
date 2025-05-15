@@ -26,29 +26,22 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Exercises", path: "/exercises" },
+    { name: "Programs", path: "/programs" },
+    { name: "Nutrition", path: "/nutrition" },
     { name: "Blog", path: "/blog" },
     { name: "About", path: "/about" },
   ];
 
   const isActivePath = (path) => {
-    return (
-      location.pathname === path ||
-      (path === "/exercises" && location.pathname.startsWith("/exercises"))
-    );
+    return location.pathname === path;
   };
 
   const handleNavClick = (path) => {
-    if (path === "/exercises" && location.pathname === "/") {
-      // If we're on home page and clicking exercises, scroll to exercises section
-      const exercisesSection = document.querySelector("#exercises");
-      if (exercisesSection) {
-        exercisesSection.scrollIntoView({ behavior: "smooth" });
-        return;
-      }
+    if (path === "/" && location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate(path);
     }
-    // For all other cases, navigate to the path
-    navigate(path);
   };
 
   return (
