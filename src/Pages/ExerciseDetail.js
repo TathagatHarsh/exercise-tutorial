@@ -29,7 +29,13 @@ const ExerciseDetail = () => {
           `https://exercisedb.p.rapidapi.com/exercises/target/${exerciseDetailData.target}`,
           exerciseOptions
         );
-        setSimilarExercises(targetMuscleExercises);
+
+        // Filter out the current exercise from similar exercises
+        const filteredSimilarExercises = targetMuscleExercises.filter(
+          (exercise) => exercise.id !== id
+        );
+
+        setSimilarExercises(filteredSimilarExercises);
       } catch (err) {
         setError("Failed to load exercise details. Please try again later.");
         console.error(err);

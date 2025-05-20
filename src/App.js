@@ -10,6 +10,7 @@ import Blog from "./Pages/Blog";
 import About from "./Pages/About";
 import Programs from "./Pages/Programs";
 import Nutrition from "./Pages/Nutrition";
+import ExerciseDetail from "./Pages/ExerciseDetail";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/nutrition" element={<Nutrition />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/about" element={<About />} />
+        <Route path="/exercise/:id" element={<ExerciseDetail />} />
       </Routes>
       <Footer />
     </Box>
