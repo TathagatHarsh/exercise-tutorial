@@ -1,30 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Dumbbell } from "lucide-react";
-import { Link as ScrollLink } from "react-scroll";
+import { Menu, X } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
-
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Close mobile menu when route changes
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location]);
 
   const navLinks = [
     { name: "Home", path: "/" },
@@ -34,9 +17,7 @@ const Navbar = () => {
     { name: "About", path: "/about" },
   ];
 
-  const isActivePath = (path) => {
-    return location.pathname === path;
-  };
+  const isActivePath = (path) => location.pathname === path;
 
   const handleNavClick = (path) => {
     if (path === "/" && location.pathname === "/") {
@@ -44,184 +25,199 @@ const Navbar = () => {
     } else {
       navigate(path);
     }
+    setIsMenuOpen(false);
   };
 
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location]);
+
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/90 backdrop-blur-md shadow-md py-4"
-          : "bg-transparent py-6"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link
-            to="/"
-            className="flex items-center space-x-2"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-              FitGuide
-            </span>
-          </Link>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => handleNavClick(link.path)}
-                className={`text-base font-medium transition-all duration-200 relative group ${
-                  isActivePath(link.path)
-                    ? "text-blue-600"
-                    : "text-gray-700 hover:text-blue-600"
-                }`}
-              >
-                {link.name}
-                <span
-                  className={`absolute -bottom-2 left-0 w-full h-0.5 bg-blue-600 transform origin-left transition-transform duration-200 ${
-                    isActivePath(link.path) ? "scale-x-100" : "scale-x-0"
-                  } group-hover:scale-x-100`}
-                ></span>
-              </Link>
-            ))}
-            {user ? (
-              <>
-                <Link
-                  to="/favorites"
-                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
-                >
-                  Favorites
-                </Link>
-                <Link
-                  to="/profile"
-                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
-                >
-                  Profile
-                </Link>
-                <button
-                  onClick={() => {
-                    logout();
-                    navigate("/login");
-                  }}
-                  className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
-                >
-                  Signup
-                </Link>
-              </>
-            )}
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-            aria-label="Toggle menu"
-          >
-            <div className="w-6 h-6 relative">
-              <span
-                className={`absolute h-0.5 w-full bg-gray-800 transform transition-all duration-300 ${
-                  isMenuOpen ? "rotate-45 top-3" : "top-1"
-                }`}
-              ></span>
-              <span
-                className={`absolute h-0.5 w-full bg-gray-800 top-3 transition-all duration-200 ${
-                  isMenuOpen ? "opacity-0" : "opacity-100"
-                }`}
-              ></span>
-              <span
-                className={`absolute h-0.5 w-full bg-gray-800 transform transition-all duration-300 ${
-                  isMenuOpen ? "-rotate-45 top-3" : "top-5"
-                }`}
-              ></span>
-            </div>
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <div
-          className={`md:hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen
-              ? "max-h-96 opacity-100 mt-4"
-              : "max-h-0 opacity-0 overflow-hidden"
-          }`}
+    <nav className="sticky top-0 z-50 w-full bg-gradient-to-r from-white to-slate-50 shadow-sm">
+      <div className="container mx-auto flex justify-between items-center px-6 py-4">
+        {/* Logo */}
+        <Link
+          to="/"
+          className="flex items-center gap-1 select-none"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
-          <div className="pt-2 pb-4 space-y-2">
-            {navLinks.map((link) => (
+          <span className="text-2xl font-extrabold tracking-tight">
+            <span className="text-black">Fit</span>
+            <span className="text-blue-600">Guide</span>
+          </span>
+        </Link>
+
+        {/* Desktop Nav */}
+        <div className="hidden md:flex gap-6 items-center">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              onClick={() => handleNavClick(link.path)}
+              className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                isActivePath(link.path) ? "border-b-2 border-blue-600 pb-1" : ""
+              }`}
+            >
+              {link.name}
+            </Link>
+          ))}
+          {user ? (
+            <>
               <Link
-                key={link.name}
-                to={link.path}
-                onClick={() => handleNavClick(link.path)}
-                className={`block px-4 py-2 text-base font-medium rounded-lg transition-colors ${
-                  isActivePath(link.path)
-                    ? "bg-blue-50 text-blue-600"
-                    : "text-gray-700 hover:bg-gray-50"
+                to="/favorites"
+                className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                  isActivePath("/favorites")
+                    ? "border-b-2 border-blue-600 pb-1"
+                    : ""
                 }`}
               >
-                {link.name}
+                Favorites
               </Link>
-            ))}
-            {user ? (
-              <>
-                <Link
-                  to="/favorites"
-                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600"
-                >
-                  Favorites
-                </Link>
-                <Link
-                  to="/profile"
-                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600"
-                >
-                  Profile
-                </Link>
-                <button
-                  onClick={() => {
-                    logout();
-                    navigate("/login");
-                  }}
-                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
-                >
-                  Logout
-                </button>
-              </>
-            ) : (
-              <>
-                <Link
-                  to="/login"
-                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/signup"
-                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
-                >
-                  Signup
-                </Link>
-              </>
-            )}
-          </div>
+              <Link
+                to="/profile"
+                className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                  isActivePath("/profile")
+                    ? "border-b-2 border-blue-600 pb-1"
+                    : ""
+                }`}
+              >
+                Profile
+              </Link>
+              <button
+                onClick={() => {
+                  logout();
+                  navigate("/login");
+                }}
+                className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-full shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition ml-2"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                  isActivePath("/login")
+                    ? "border-b-2 border-blue-600 pb-1"
+                    : ""
+                }`}
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                  isActivePath("/signup")
+                    ? "border-b-2 border-blue-600 pb-1"
+                    : ""
+                }`}
+              >
+                Signup
+              </Link>
+            </>
+          )}
         </div>
+
+        {/* Hamburger Menu (Mobile) */}
+        <button
+          className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          onClick={() => setIsMenuOpen((open) => !open)}
+          aria-label="Toggle menu"
+        >
+          {isMenuOpen ? (
+            <X className="w-6 h-6" />
+          ) : (
+            <Menu className="w-6 h-6" />
+          )}
+        </button>
+
+        {/* Mobile Dropdown */}
+        {isMenuOpen && (
+          <div className="absolute top-full left-0 w-full bg-white shadow-md md:hidden animate-fade-in">
+            <div className="flex flex-col gap-2 py-4 px-6">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  onClick={() => handleNavClick(link.path)}
+                  className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                    isActivePath(link.path)
+                      ? "border-b-2 border-blue-600 pb-1"
+                      : ""
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              {user ? (
+                <>
+                  <Link
+                    to="/favorites"
+                    className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                      isActivePath("/favorites")
+                        ? "border-b-2 border-blue-600 pb-1"
+                        : ""
+                    }`}
+                  >
+                    Favorites
+                  </Link>
+                  <Link
+                    to="/profile"
+                    className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                      isActivePath("/profile")
+                        ? "border-b-2 border-blue-600 pb-1"
+                        : ""
+                    }`}
+                  >
+                    Profile
+                  </Link>
+                  <button
+                    onClick={() => {
+                      logout();
+                      navigate("/login");
+                    }}
+                    className="bg-blue-600 text-white font-semibold px-4 py-2 rounded-full shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition mt-2"
+                  >
+                    Logout
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                      isActivePath("/login")
+                        ? "border-b-2 border-blue-600 pb-1"
+                        : ""
+                    }`}
+                  >
+                    Login
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className={`text-gray-700 hover:text-blue-600 transition-all duration-200 font-medium ${
+                      isActivePath("/signup")
+                        ? "border-b-2 border-blue-600 pb-1"
+                        : ""
+                    }`}
+                  >
+                    Signup
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
+      {/* Fade-in animation for mobile dropdown */}
+      <style>{`
+        .animate-fade-in { animation: fadeInUp 0.3s; }
+        @keyframes fadeInUp {
+          0% { opacity: 0; transform: translateY(-10px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
     </nav>
   );
 };
