@@ -27,15 +27,12 @@ const ExerciseCard = ({ exercise }) => {
     };
   }, []);
 
-  // Add console log to debug the data
-  console.log("Exercise data:", exercise);
-
   if (!exercise) return null;
 
   return (
     <Link
       to={`/exercise/${exercise.id}`}
-      className="group relative block bg-white rounded-lg shadow-md hover:shadow-lg 
+      className="group relative block bg-white rounded-lg shadow-md hover:shadow-lg \
                 transition-all duration-300 overflow-hidden exercise-card"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -91,7 +88,7 @@ const ExerciseCard = ({ exercise }) => {
           </p>
         </div>
         <button
-          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-full 
+          className="mt-6 px-6 py-2 bg-blue-600 text-white rounded-full \
                          hover:bg-blue-700 transition-colors duration-300"
         >
           View Details

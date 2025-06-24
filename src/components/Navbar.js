@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Dumbbell } from "lucide-react";
 import { Link as ScrollLink } from "react-scroll";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, logout } = useAuth();
 
   // Handle scroll effect
   useEffect(() => {
@@ -86,6 +88,46 @@ const Navbar = () => {
                 ></span>
               </Link>
             ))}
+            {user ? (
+              <>
+                <Link
+                  to="/favorites"
+                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
+                >
+                  Favorites
+                </Link>
+                <Link
+                  to="/profile"
+                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    navigate("/login");
+                  }}
+                  className="ml-4 px-4 py-2 bg-blue-600 text-white rounded-full font-semibold hover:bg-blue-700 transition-colors"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="text-base font-medium text-gray-700 hover:text-blue-600 transition-all duration-200"
+                >
+                  Signup
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -137,6 +179,46 @@ const Navbar = () => {
                 {link.name}
               </Link>
             ))}
+            {user ? (
+              <>
+                <Link
+                  to="/favorites"
+                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600"
+                >
+                  Favorites
+                </Link>
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    navigate("/login");
+                  }}
+                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="block px-4 py-2 text-base font-medium rounded-lg transition-colors bg-blue-50 text-blue-600 hover:bg-blue-100"
+                >
+                  Signup
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
