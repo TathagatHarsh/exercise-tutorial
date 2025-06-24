@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Filter, ChevronRight, Calendar, User } from "lucide-react";
+import { Search, ChevronRight, Calendar, User } from "lucide-react";
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -106,7 +106,7 @@ const Blog = () => {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-16 text-center">
+        <div className="mt-20 mb-16 text-center">
           <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
             Fitness Knowledge Hub
           </h1>
