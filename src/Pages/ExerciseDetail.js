@@ -92,7 +92,7 @@ const ExerciseDetail = () => {
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="p-4 text-center text-red-500 rounded-lg bg-red-50">
+        <div className="p-4 text-center text-red-500 bg-red-50 rounded-lg">
           {error}
         </div>
       </div>
@@ -110,8 +110,8 @@ const ExerciseDetail = () => {
   return (
     <div className="px-4 py-8 md:px-8 lg:px-16">
       {/* Exercise Detail Section */}
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-12 overflow-hidden bg-white shadow-lg rounded-2xl">
+      <div className="mx-auto max-w-6xl">
+        <div className="overflow-hidden mb-12 bg-white rounded-2xl shadow-lg">
           <div className="p-6 md:p-8">
             <h1 className="mb-4 text-3xl font-bold capitalize md:text-4xl">
               {exerciseDetail.name}
@@ -133,7 +133,7 @@ const ExerciseDetail = () => {
               <img
                 src={exerciseDetail.gifUrl}
                 alt={exerciseDetail.name}
-                className="h-auto max-w-full rounded-lg shadow-md"
+                className="max-w-full h-auto rounded-lg shadow-md"
                 loading="lazy"
               />
             </div>
@@ -144,14 +144,14 @@ const ExerciseDetail = () => {
                 {isFavorite ? (
                   <button
                     onClick={handleRemoveFavorite}
-                    className="px-6 py-2 text-base font-semibold text-white transition-colors duration-300 bg-red-500 rounded-full hover:bg-red-600"
+                    className="px-6 py-2 text-base font-semibold text-white bg-red-500 rounded-full transition-colors duration-300 hover:bg-red-600"
                   >
                     Remove from Favorites
                   </button>
                 ) : (
                   <button
                     onClick={handleAddFavorite}
-                    className="px-6 py-2 text-base font-semibold text-white transition-colors duration-300 bg-blue-600 rounded-full hover:bg-blue-700"
+                    className="px-6 py-2 text-base font-semibold text-white bg-blue-600 rounded-full transition-colors duration-300 hover:bg-blue-700"
                   >
                     Add to Favorites
                   </button>

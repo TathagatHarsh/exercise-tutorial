@@ -16,27 +16,50 @@ const Profile = () => {
     );
   }
 
+  // Get initials from displayName or email
+  const getInitials = () => {
+    if (user.displayName) {
+      return user.displayName
+        .split(" ")
+        .map((n) => n[0])
+        .join("")
+        .toUpperCase();
+    }
+    if (user.email) {
+      return user.email[0].toUpperCase();
+    }
+    return "U";
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-slate-100 to-white px-4">
       <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center animate-fade-in">
-        {/* Profile Picture Placeholder */}
-        <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl text-gray-400 select-none">
-          {user.name
-            ? user.name[0].toUpperCase()
-            : user.username[0].toUpperCase()}
-        </div>
+        {/* Profile Picture or Initials */}
+        {user.photoURL ? (
+          <img
+            src={user.photoURL}
+            alt="Profile"
+            className="w-20 h-20 rounded-full mx-auto mb-4 object-cover border"
+          />
+        ) : (
+          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl text-gray-400 select-none">
+            {getInitials()}
+          </div>
+        )}
         <h2 className="text-2xl font-bold mb-6">Profile</h2>
         <div className="mb-4">
-          <span className="font-semibold text-gray-700 block">Username</span>
-          <span className="text-gray-900">{user.username}</span>
+          <span className="font-semibold text-gray-700 block">Full Name</span>
+          <span className="text-gray-900">
+            {user.displayName || (user.email && user.email.split("@")[0])}
+          </span>
         </div>
         <div className="mb-4">
-          <span className="font-semibold text-gray-700 block">Full Name</span>
-          <span className="text-gray-900">{user.name}</span>
-        </div>
-        <div className="mb-6">
           <span className="font-semibold text-gray-700 block">Email</span>
           <span className="text-gray-900">{user.email}</span>
+        </div>
+        <div className="mb-6">
+          <span className="font-semibold text-gray-700 block">User ID</span>
+          <span className="text-gray-900 break-all">{user.uid}</span>
         </div>
         <button
           onClick={() => {

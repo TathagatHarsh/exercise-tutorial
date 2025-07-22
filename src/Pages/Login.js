@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaGoogle } from "react-icons/fa";
 
 const Login = () => {
-  const [form, setForm] = useState({ username: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -17,26 +17,37 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (!form.username.trim() || !form.password.trim()) {
+    if (!form.email.trim() || !form.password.trim()) {
       setError("Both fields are required");
       return;
     }
     setLoading(true);
-    // Simulate async login
-    setTimeout(() => {
-      // Check if user exists and password matches
-      const details = JSON.parse(
-        localStorage.getItem(`user_details_${form.username}`)
-      );
-      if (!details || details.password !== form.password) {
-        setError("Invalid username or password");
-        setLoading(false);
-        return;
-      }
-      login(form.username);
-      setLoading(false);
+    try {
+      await login(form.email, form.password);
       navigate("/");
-    }, 900);
+    } catch (err) {
+      setError(
+        err.message
+          .replace("Firebase:", "")
+          .replace("auth/", "")
+          .replace(/-/g, " ")
+          .trim()
+      );
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      await loginWithGoogle();
+      navigate("/");
+    } catch (err) {
+      setError("Google sign-in failed");
+      setLoading(false);
+    }
   };
 
   return (
@@ -49,19 +60,19 @@ const Login = () => {
         <h2 className="text-2xl font-bold mb-8 text-center tracking-tight">
           🔒 Login
         </h2>
-        {/* Username */}
+        {/* Email */}
         <div className="relative mb-4">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
             <FaUser />
           </span>
           <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={form.username}
+            type="email"
+            name="email"
+            placeholder="Email"
+            value={form.email}
             onChange={handleChange}
             className="w-full border border-gray-300 rounded-md px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium bg-slate-50"
-            autoComplete="username"
+            autoComplete="email"
           />
         </div>
         {/* Password */}
@@ -86,6 +97,14 @@ const Login = () => {
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md w-full shadow transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {loading ? "Logging in..." : "Login"}
+        </button>
+        <button
+          type="button"
+          onClick={handleGoogleLogin}
+          disabled={loading}
+          className="flex items-center justify-center gap-2 bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-md w-full shadow transition mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <FaGoogle className="text-red-500" /> Sign in with Google
         </button>
         <div className="mt-6 text-center text-sm text-gray-600">
           Don't have an account?{" "}

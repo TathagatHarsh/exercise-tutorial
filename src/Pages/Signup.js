@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser, FaLock, FaEnvelope, FaIdCard } from "react-icons/fa";
+import { FaUser, FaLock, FaEnvelope, FaIdCard, FaGoogle } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
 
 const Signup = () => {
-  const [form, setForm] = useState({
-    username: "",
-    name: "",
-    email: "",
-    password: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { signup, loginWithGoogle } = useAuth();
   const navigate = useNavigate();
 
   const validateEmail = (email) => /\S+@\S+\.\S+/.test(email);
@@ -22,12 +19,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
-    if (
-      !form.username.trim() ||
-      !form.name.trim() ||
-      !form.email.trim() ||
-      !form.password.trim()
-    ) {
+    if (!form.name.trim() || !form.email.trim() || !form.password.trim()) {
       setError("All fields are required");
       return;
     }
@@ -40,16 +32,32 @@ const Signup = () => {
       return;
     }
     setLoading(true);
-    setTimeout(() => {
-      // Save user details in localStorage
-      localStorage.setItem(
-        `user_details_${form.username}`,
-        JSON.stringify({ ...form })
+    try {
+      await signup(form.email, form.password, form.name);
+      navigate("/");
+    } catch (err) {
+      setError(
+        err.message
+          .replace("Firebase:", "")
+          .replace("auth/", "")
+          .replace(/-/g, " ")
+          .trim()
       );
-      setError("");
       setLoading(false);
-      navigate("/login");
-    }, 900);
+    }
+  };
+
+  const handleGoogleSignup = async (e) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
+    try {
+      await loginWithGoogle();
+      navigate("/");
+    } catch (err) {
+      setError("Google sign-in failed");
+      setLoading(false);
+    }
   };
 
   return (
@@ -62,21 +70,6 @@ const Signup = () => {
         <h2 className="text-2xl font-bold mb-8 text-center tracking-tight">
           📝 Sign Up
         </h2>
-        {/* Username */}
-        <div className="relative mb-4">
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
-            <FaUser />
-          </span>
-          <input
-            type="text"
-            name="username"
-            placeholder="Username"
-            value={form.username}
-            onChange={handleChange}
-            className="w-full border border-gray-300 rounded-md px-10 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 font-medium bg-slate-50"
-            autoComplete="username"
-          />
-        </div>
         {/* Full Name */}
         <div className="relative mb-4">
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
@@ -129,6 +122,14 @@ const Signup = () => {
           className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-md w-full shadow transition mt-2 disabled:opacity-60 disabled:cursor-not-allowed"
         >
           {loading ? "Signing up..." : "Sign Up"}
+        </button>
+        <button
+          type="button"
+          onClick={handleGoogleSignup}
+          disabled={loading}
+          className="flex items-center justify-center gap-2 bg-white border border-gray-300 hover:bg-gray-100 text-gray-700 font-semibold py-2 rounded-md w-full shadow transition mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          <FaGoogle className="text-red-500" /> Sign up with Google
         </button>
         <div className="mt-6 text-center text-sm">
           Already have an account?{" "}
