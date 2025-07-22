@@ -1,5 +1,5 @@
 import React from "react";
-import { Users, Target, Award, Heart, Clock, Dumbbell } from "lucide-react";
+import { Users, Target, Award, Heart, Clock } from "lucide-react";
 
 const About = () => {
   const stats = [
@@ -66,23 +66,23 @@ const About = () => {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="px-4 py-24 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
               Transforming Lives Through
               <span className="text-blue-600"> Fitness Excellence</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-lg text-gray-600 mb-8">
+            <p className="max-w-2xl mx-auto mb-8 text-lg text-gray-600">
               At FitGuide, we believe in making fitness accessible, enjoyable,
               and effective for everyone. Our platform combines expert guidance,
               cutting-edge technology, and a supportive community to help you
               achieve your fitness goals.
             </p>
             <div className="flex justify-center gap-4">
-              <button className="px-8 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors">
+              <button className="px-8 py-3 text-white transition-colors bg-blue-600 rounded-full hover:bg-blue-700">
                 Join Now
               </button>
-              <button className="px-8 py-3 border-2 border-blue-600 text-blue-600 rounded-full hover:bg-blue-50 transition-colors">
+              <button className="px-8 py-3 text-blue-600 transition-colors border-2 border-blue-600 rounded-full hover:bg-blue-50">
                 Learn More
               </button>
             </div>
@@ -91,17 +91,17 @@ const About = () => {
       </div>
 
       {/* Stats Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {stats.map((stat, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl p-6 text-center shadow-lg hover:shadow-xl transition-shadow"
+              className="p-6 text-center transition-shadow bg-white shadow-lg rounded-xl hover:shadow-xl"
             >
               <div className="flex justify-center mb-4">
                 <stat.icon size={40} className="text-blue-600" />
               </div>
-              <div className="text-3xl font-bold text-gray-900 mb-2">
+              <div className="mb-2 text-3xl font-bold text-gray-900">
                 {stat.value}
               </div>
               <div className="text-gray-600">{stat.label}</div>
@@ -111,30 +111,30 @@ const About = () => {
       </div>
 
       {/* Our Values Section */}
-      <div className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      <div className="py-16 bg-white">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900">
               Our Values
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="max-w-2xl mx-auto text-gray-600">
               These core values guide everything we do at FitGuide, ensuring we
               deliver the best possible experience for our community.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {values.map((value, index) => (
               <div
                 key={index}
-                className="bg-gray-50 rounded-xl p-6 hover:bg-blue-50 transition-colors"
+                className="p-6 transition-colors bg-gray-50 rounded-xl hover:bg-blue-50"
               >
                 <div className="flex justify-center mb-4">
                   <value.icon size={32} className="text-blue-600" />
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2 text-center">
+                <h3 className="mb-2 text-xl font-semibold text-center text-gray-900">
                   {value.title}
                 </h3>
-                <p className="text-gray-600 text-center">{value.description}</p>
+                <p className="text-center text-gray-600">{value.description}</p>
               </div>
             ))}
           </div>
@@ -142,33 +142,33 @@ const About = () => {
       </div>
 
       {/* Team Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
+      <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-bold text-gray-900">
             Meet Our Expert Team
           </h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <p className="max-w-2xl mx-auto text-gray-600">
             Our team of certified professionals is dedicated to helping you
             achieve your fitness goals through personalized guidance and
             support.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {team.map((member, index) => (
             <div
               key={index}
-              className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+              className="overflow-hidden transition-shadow bg-white shadow-lg rounded-xl hover:shadow-xl"
             >
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-full h-64 object-cover"
+                className="object-cover w-full h-64"
               />
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                <h3 className="mb-1 text-xl font-semibold text-gray-900">
                   {member.name}
                 </h3>
-                <div className="text-blue-600 font-medium mb-3">
+                <div className="mb-3 font-medium text-blue-600">
                   {member.role}
                 </div>
                 <p className="text-gray-600">{member.description}</p>
@@ -179,16 +179,16 @@ const About = () => {
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-400 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+      <div className="py-16 bg-gradient-to-r from-blue-600 to-blue-400">
+        <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
+          <h2 className="mb-4 text-3xl font-bold text-white">
             Ready to Start Your Fitness Journey?
           </h2>
-          <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
+          <p className="max-w-2xl mx-auto mb-8 text-blue-100">
             Join FitGuide today and get access to expert-designed workouts,
             nutrition guidance, and a supportive community to help you succeed.
           </p>
-          <button className="px-8 py-3 bg-white text-blue-600 rounded-full font-medium hover:bg-blue-50 transition-colors">
+          <button className="px-8 py-3 font-medium text-blue-600 transition-colors bg-white rounded-full hover:bg-blue-50">
             Get Started Today
           </button>
         </div>

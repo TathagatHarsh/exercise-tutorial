@@ -63,8 +63,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="sticky top-0 z-50 w-full bg-gradient-to-r from-white to-slate-50 shadow-sm">
-      <div className="container mx-auto flex justify-between items-center px-6 py-4">
+    <nav className="sticky top-0 z-50 w-full shadow-sm bg-gradient-to-r from-white to-slate-50">
+      <div className="container flex items-center justify-between px-6 py-4 mx-auto">
         {/* Logo */}
         <Link
           to="/"
@@ -78,7 +78,7 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex gap-6 items-center">
+        <div className="items-center hidden gap-6 md:flex">
           {navLinks.map((link) => (
             <Link
               key={link.name}
@@ -106,7 +106,7 @@ const Navbar = () => {
               {/* Profile Avatar Dropdown */}
               <div className="relative" ref={profileRef}>
                 <button
-                  className="rounded-full w-8 h-8 bg-blue-600 text-white flex items-center justify-center font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200 ml-2"
+                  className="flex items-center justify-center w-8 h-8 ml-2 font-semibold text-white transition-all duration-200 bg-blue-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                   aria-haspopup="true"
                   aria-expanded={profileDropdown}
                   onClick={() => setProfileDropdown((open) => !open)}
@@ -116,35 +116,29 @@ const Navbar = () => {
                   {getInitials()}
                 </button>
                 {profileDropdown && (
-                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50 origin-top-right animate-profile-dropdown">
+                  <div className="absolute right-0 z-50 w-48 py-2 mt-2 origin-top-right bg-white rounded-lg shadow-lg animate-profile-dropdown">
                     <Link
                       to="/profile"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                      className="flex items-center block gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setProfileDropdown(false)}
                     >
                       <User className="w-4 h-4" /> View Profile
                     </Link>
                     <Link
                       to="/favorites"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                      className="flex items-center block gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                       onClick={() => setProfileDropdown(false)}
                     >
                       <Star className="w-4 h-4" /> Favorites
                     </Link>
-                    <Link
-                      to="/settings"
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
-                      onClick={() => setProfileDropdown(false)}
-                    >
-                      <Settings className="w-4 h-4" /> Settings
-                    </Link>
+
                     <button
                       onClick={() => {
                         logout();
                         navigate("/login");
                         setProfileDropdown(false);
                       }}
-                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center gap-2"
+                      className="flex items-center block w-full gap-2 px-4 py-2 text-sm text-left text-red-600 hover:bg-gray-100"
                     >
                       <LogOut className="w-4 h-4" /> Logout
                     </button>
@@ -190,7 +184,7 @@ const Navbar = () => {
 
         {/* Hamburger Menu (Mobile) */}
         <button
-          className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="p-2 rounded md:hidden focus:outline-none focus:ring-2 focus:ring-blue-400"
           onClick={() => setIsMenuOpen((open) => !open)}
           aria-label="Toggle menu"
         >
@@ -203,8 +197,8 @@ const Navbar = () => {
 
         {/* Mobile Dropdown */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 w-full bg-white shadow-md md:hidden animate-fade-in">
-            <div className="flex flex-col gap-2 py-4 px-6">
+          <div className="absolute left-0 w-full bg-white shadow-md top-full md:hidden animate-fade-in">
+            <div className="flex flex-col gap-2 px-6 py-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -234,7 +228,7 @@ const Navbar = () => {
                   {/* Profile Dropdown for Mobile */}
                   <div className="flex items-center gap-2 mt-2">
                     <button
-                      className="rounded-full w-8 h-8 bg-blue-600 text-white flex items-center justify-center font-semibold focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200"
+                      className="flex items-center justify-center w-8 h-8 font-semibold text-white transition-all duration-200 bg-blue-600 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-400"
                       aria-haspopup="true"
                       aria-expanded={profileDropdown}
                       onClick={() => setProfileDropdown((open) => !open)}
@@ -247,24 +241,24 @@ const Navbar = () => {
                     </span>
                   </div>
                   {profileDropdown && (
-                    <div className="mt-2 w-full bg-white rounded-lg shadow-lg py-2 z-50 animate-profile-dropdown">
+                    <div className="z-50 w-full py-2 mt-2 bg-white rounded-lg shadow-lg animate-profile-dropdown">
                       <Link
                         to="/profile"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                        className="flex items-center block gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setProfileDropdown(false)}
                       >
                         <User className="w-4 h-4" /> View Profile
                       </Link>
                       <Link
                         to="/favorites"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                        className="flex items-center block gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setProfileDropdown(false)}
                       >
                         <Star className="w-4 h-4" /> Favorites
                       </Link>
                       <Link
                         to="/settings"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center gap-2"
+                        className="flex items-center block gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         onClick={() => setProfileDropdown(false)}
                       >
                         <Settings className="w-4 h-4" /> Settings
@@ -275,7 +269,7 @@ const Navbar = () => {
                           navigate("/login");
                           setProfileDropdown(false);
                         }}
-                        className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100 flex items-center gap-2"
+                        className="flex items-center block w-full gap-2 px-4 py-2 text-sm text-left text-red-600 hover:bg-gray-100"
                       >
                         <LogOut className="w-4 h-4" /> Logout
                       </button>
