@@ -29,6 +29,8 @@ const ExerciseCard = ({ exercise }) => {
 
   if (!exercise) return null;
 
+  const imageSrc = exercise.gifUrl || DEFAULT_EXERCISE_IMAGE;
+
   return (
     <Link
       to={`/exercise/${exercise.id}`}
@@ -39,8 +41,8 @@ const ExerciseCard = ({ exercise }) => {
     >
       <div className="w-full h-[326px] overflow-hidden">
         <img
-          src={exercise.gifUrl}
-          alt={exercise.name}
+          src={imageSrc}
+          alt={exercise.name || "Exercise image"}
           loading="lazy"
           className="w-full h-full object-cover"
         />

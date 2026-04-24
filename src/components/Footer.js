@@ -98,26 +98,30 @@ export default function Footer() {
                 excellence.
               </p>
               <div className="flex space-x-4">
-                <button
+                <a
+                  href="#"
                   className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition-colors"
                 >
                   <Instagram className="w-5 h-5" />
-                </button>
-                <button
+                </a>
+                <a
+                  href="#"
                   className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-400 transition-colors"
                 >
                   <Twitter className="w-5 h-5" />
-                </button>
-                <button
+                </a>
+                <a
+                  href="#"
                   className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-800 transition-colors"
                 >
                   <Facebook className="w-5 h-5" />
-                </button>
-                <button
+                </a>
+                <a
+                  href="#"
                   className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-600 transition-colors"
                 >
                   <Youtube className="w-5 h-5" />
-                </button>
+                </a>
               </div>
             </div>
 

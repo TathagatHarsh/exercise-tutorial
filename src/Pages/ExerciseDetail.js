@@ -5,6 +5,8 @@ import Loader from "../components/Loader";
 import ExerciseCard from "../components/ExerciseCard";
 import { useAuth } from "../context/AuthContext";
 
+const DEFAULT_EXERCISE_IMAGE = "https://via.placeholder.com/800x450?text=No+Image+Available";
+
 const ExerciseDetail = () => {
   const [exerciseDetail, setExerciseDetail] = useState(null);
   const [similarExercises, setSimilarExercises] = useState([]);
@@ -131,8 +133,8 @@ const ExerciseDetail = () => {
 
             <div className="flex justify-center mb-8">
               <img
-                src={exerciseDetail.gifUrl}
-                alt={exerciseDetail.name}
+                src={exerciseDetail.gifUrl || DEFAULT_EXERCISE_IMAGE}
+                alt={exerciseDetail.name || "Exercise image"}
                 className="max-w-full h-auto rounded-lg shadow-md"
                 loading="lazy"
               />
