@@ -2,10 +2,13 @@ import React from "react";
 
 const DEFAULT_EXERCISE_IMAGE = "https://via.placeholder.com/600x400?text=No+Image+Available";
 
+const getExerciseImageUrl = (exercise) =>
+  exercise?.gifUrl || exercise?.image || exercise?.imageUrl || exercise?.url || DEFAULT_EXERCISE_IMAGE;
+
 const ExerciseOverlay = ({ exercise, onClose, isOpen }) => {
   if (!isOpen) return null;
 
-  const imageSrc = exercise?.gifUrl || DEFAULT_EXERCISE_IMAGE;
+  const imageSrc = getExerciseImageUrl(exercise);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">

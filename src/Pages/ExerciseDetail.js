@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchData, exerciseOptions } from "../utils/fetchData";
+import { fetchData, exerciseOptions, fetchExerciseImage } from "../utils/fetchData";
 import Loader from "../components/Loader";
 import ExerciseCard from "../components/ExerciseCard";
 import { useAuth } from "../context/AuthContext";
 
 const DEFAULT_EXERCISE_IMAGE = "https://via.placeholder.com/800x450?text=No+Image+Available";
 
+const getExerciseImageUrl = (exercise) =>
+  exercise?.gifUrl || exercise?.image || exercise?.imageUrl || exercise?.url || DEFAULT_EXERCISE_IMAGE;
+
 const ExerciseDetail = () => {
   const [exerciseDetail, setExerciseDetail] = useState(null);
+  const [exerciseImageUrl, setExerciseImageUrl] = useState(null);
   const [similarExercises, setSimilarExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -29,6 +33,21 @@ const ExerciseDetail = () => {
           exerciseOptions
         );
         setExerciseDetail(exerciseDetailData);
+
+        // Attempt to fetch a dedicated exercise image from the API
+        try {
+          const imageResponse = await fetchExerciseImage(exerciseDetailData.id);
+          if (typeof imageResponse === "string") {
+            setExerciseImageUrl(imageResponse);
+          } else if (imageResponse) {
+            setExerciseImageUrl(
+              imageResponse.imageUrl || imageResponse.image || imageResponse.url || imageResponse.gifUrl || null,
+            );
+          }
+        } catch (imageError) {
+          console.warn("Exercise image endpoint failed:", imageError.message || imageError);
+          setExerciseImageUrl(null);
+        }
 
         // Fetch similar exercises based on target muscle
         const targetMuscleExercises = await fetchData(
@@ -133,7 +152,7 @@ const ExerciseDetail = () => {
 
             <div className="flex justify-center mb-8">
               <img
-                src={exerciseDetail.gifUrl || DEFAULT_EXERCISE_IMAGE}
+                src={exerciseImageUrl || getExerciseImageUrl(exerciseDetail)}
                 alt={exerciseDetail.name || "Exercise image"}
                 className="max-w-full h-auto rounded-lg shadow-md"
                 loading="lazy"

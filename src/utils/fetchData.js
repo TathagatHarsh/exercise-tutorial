@@ -29,3 +29,8 @@ export const fetchData = async (url, options) => {
     throw error; // Re-throw the error to be handled by the component
   }
 };
+
+export const fetchExerciseImage = async (id) => {
+  const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/getExerciseImage?id=${id}`;
+  return fetchData(url, exerciseOptions);
+};

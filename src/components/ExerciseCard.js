@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 const DEFAULT_EXERCISE_IMAGE = "https://via.placeholder.com/600x400?text=No+Image+Available";
 
+const getExerciseImageUrl = (exercise) =>
+  exercise?.gifUrl || exercise?.image || exercise?.imageUrl || exercise?.url || DEFAULT_EXERCISE_IMAGE;
+
 const ExerciseCard = ({ exercise }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const timeoutRef = useRef(null);
@@ -31,7 +34,7 @@ const ExerciseCard = ({ exercise }) => {
 
   if (!exercise) return null;
 
-  const imageSrc = exercise.gifUrl || DEFAULT_EXERCISE_IMAGE;
+  const imageSrc = getExerciseImageUrl(exercise);
 
   return (
     <Link
