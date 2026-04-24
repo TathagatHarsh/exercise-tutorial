@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaUser, FaLock, FaEnvelope, FaIdCard, FaGoogle } from "react-icons/fa";
+import { FaLock, FaEnvelope, FaIdCard, FaGoogle } from "react-icons/fa";
 import { useAuth } from "../context/AuthContext";
 
 const Signup = () => {
