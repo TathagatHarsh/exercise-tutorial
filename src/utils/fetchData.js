@@ -1,7 +1,7 @@
 export const exerciseOptions = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "d206c71e6dmshce7cd2684236af3p15a8c4jsn54",
+    "X-RapidAPI-Key": "f2960d20demshaa58709d62b4c38p149bcdjsncc27c6185c18",
     "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
   },
 };
@@ -13,7 +13,7 @@ export const fetchData = async (url, options) => {
     if (!response.ok) {
       const errorText = await response.text();
       throw new Error(
-        `API Error (${response.status}): ${errorText || response.statusText}`
+        `API Error (${response.status}): ${errorText || response.statusText}`,
       );
     }
 

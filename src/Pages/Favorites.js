@@ -25,7 +25,7 @@ const Favorites = () => {
   }
 
   return (
-    <div className="px-4 py-8 md:px-8 lg:px-16 pt-24 min-h-screen bg-gradient-to-br from-slate-100 to-slate-200">
+    <div className="min-h-screen px-4 py-8 pt-24 md:px-8 lg:px-16 bg-gradient-to-br from-slate-100 to-slate-200">
       <div className="max-w-6xl mx-auto">
         <h1 className="mb-8 text-3xl font-bold">My Favorite Exercises</h1>
         {favorites.length === 0 ? (
