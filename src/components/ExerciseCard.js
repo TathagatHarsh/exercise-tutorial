@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const DEFAULT_EXERCISE_IMAGE = "https://via.placeholder.com/600x400?text=No+Image+Available";
+
 const ExerciseCard = ({ exercise }) => {
   const [showOverlay, setShowOverlay] = useState(false);
   const timeoutRef = useRef(null);
