@@ -1,10 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const DEFAULT_EXERCISE_IMAGE = "https://via.placeholder.com/600x400?text=No+Image+Available";
-
-const getExerciseImageUrl = (exercise) =>
-  exercise?.gifUrl || exercise?.image || exercise?.imageUrl || exercise?.url || DEFAULT_EXERCISE_IMAGE;
+import { getExerciseImageUrl } from "../utils/exerciseImage";
 
 const ExerciseCard = ({ exercise }) => {
   const [showOverlay, setShowOverlay] = useState(false);

@@ -1,7 +1,9 @@
+export const EXERCISE_DB_API_KEY = "f2960d20demshaa58709d62b4c38p149bcdjsncc27c6185c18";
+
 export const exerciseOptions = {
   method: "GET",
   headers: {
-    "X-RapidAPI-Key": "f2960d20demshaa58709d62b4c38p149bcdjsncc27c6185c18",
+    "X-RapidAPI-Key": EXERCISE_DB_API_KEY,
     "X-RapidAPI-Host": "exercisedb.p.rapidapi.com",
   },
 };
@@ -28,9 +30,4 @@ export const fetchData = async (url, options) => {
     console.error("Fetch error:", error.message);
     throw error; // Re-throw the error to be handled by the component
   }
-};
-
-export const fetchExerciseImage = async (id) => {
-  const url = `https://exercisedb.p.rapidapi.com/exercises/exercise/getExerciseImage?id=${id}`;
-  return fetchData(url, exerciseOptions);
 };
